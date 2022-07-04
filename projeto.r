@@ -2,12 +2,18 @@ library("Rlab")
 library(zoo)
 library(dplyr)
 setwd("/Users/feliperamos/Documents/pro3200/projeto/projEstat/")
+
 dados <- read.csv(file="metais.csv")
 dadosInt <- mutate(dados, Paladio = na.approx(Paladio))
 dadosInt <- mutate(dadosInt, Platina = na.approx(Platina))
+dadosInt <- mutate(dadosInt, CrudeOil = na.approx(CrudeOil))
+dadosInt <- mutate(dadosInt, USBond = na.approx(USBond))
+dadosInt <- mutate(dadosInt, Ouro = na.approx(Ouro))
+dadosInt <- mutate(dadosInt, Dolar = na.approx(Dolar))
+dadosInt <- mutate(dadosInt, Bitcoin = na.approx(Bitcoin))
 
-preGuerra <- dadosInt[1:65,]
-posGuerra <- dadosInt[66:130,]
+preGuerra <- dadosInt[1:112,]
+posGuerra <- dadosInt[113:180,]
 
 mediaPreGuerraPaladio = mean(preGuerra$Paladio)
 mediaPreGuerraPlatina = mean(preGuerra$Platina)
@@ -81,13 +87,38 @@ posGuerra$"RetornoPlatina" = NA
 posGuerra$"RetornoPaladio" = NA
 preGuerra$"RetornoPlatina" = NA
 preGuerra$"RetornoPaladio" = NA
+posGuerra$"RetornoCrudeOil" = NA
+posGuerra$"RetornoCrudeOil" = NA
+preGuerra$"RetornoUSBond" = NA
+preGuerra$"RetornoUSBond" = NA
+posGuerra$"RetornoOuro" = NA
+posGuerra$"RetornoOuro" = NA
+preGuerra$"RetornoDolar" = NA
+preGuerra$"RetornoDolar" = NA
+
+contRetornoPaladioPos = 0
+contRetornoPaladioPre = 0
+contRetornoPlatinaPos = 0
+contRetornoPlatinaPre = 0
+contRetornoPaladioPos = 0
+contRetornoPaladioPre = 0
+contRetornoPlatinaPos = 0
+contRetornoPlatinaPre = 0
 contRetornoPaladioPos = 0
 contRetornoPaladioPre = 0
 contRetornoPlatinaPos = 0
 contRetornoPlatinaPre = 0
 
+
+
 for(i in 2: dim(posGuerra)[1]){
 	posGuerra$RetornoPaladio[i] <- log(posGuerra$Paladio[i]/posGuerra$Paladio[i-1])
+    posGuerra$RetornoCrudeOil[i] <- log(posGuerra$CrudeOil[i]/posGuerra$CrudeOil[i-1])
+    posGuerra$RetornoUSBond[i] <- log(posGuerra$USBond[i]/posGuerra$USBond[i-1])
+    posGuerra$RetornoOuro[i] <- log(posGuerra$Ouro[i]/posGuerra$Ouro[i-1])
+    posGuerra$RetornoDolar[i] <- log(posGuerra$Dolar[i]/posGuerra$Dolar[i-1])
+    posGuerra$RetornoBitcoin[i] <- log(posGuerra$Bitcoin[i]/posGuerra$Bitcoin[i-1])
+
 	if(posGuerra$RetornoPaladio[i] > 0.025){
 		contRetornoPaladioPos = contRetornoPaladioPos + 1
 	}
@@ -107,6 +138,11 @@ for(i in 2: dim(preGuerra)[1]){
 
 for(i in 2: dim(preGuerra)[1]){
 	preGuerra$RetornoPaladio[i] <- log(preGuerra$Paladio[i]/preGuerra$Paladio[i-1])
+    preGuerra$RetornoCrudeOil[i] <- log(posGuerra$CrudeOil[i]/posGuerra$CrudeOil[i-1])
+    preGuerra$RetornoUSBond[i] <- log(posGuerra$USBond[i]/posGuerra$USBond[i-1])
+    preGuerra$RetornoOuro[i] <- log(posGuerra$Ouro[i]/posGuerra$Ouro[i-1])
+    preGuerra$RetornoDolar[i] <- log(posGuerra$Dolar[i]/posGuerra$Dolar[i-1])
+    preGuerra$RetornoBitcoin[i] <- log(posGuerra$Bitcoin[i]/posGuerra$Bitcoin[i-1])
 	if(preGuerra$RetornoPaladio[i] > 0.025){
 		contRetornoPaladioPre = contRetornoPaladioPre + 1
 	}
@@ -138,49 +174,49 @@ ShighRetornoPosGuerraPlatina = (dim(posGuerra)[1]-1)*varPosRetornoPlatina/aPosGu
 #ShighRetornoPreGuerraPaladio
 #SlowRetornoPreGuerraPlatina
 #ShighRetornoPreGuerraPlatina
-#
+
 #SlowRetornoPosGuerraPaladio
 #ShighRetornoPosGuerraPaladio
 #SlowRetornoPosGuerraPlatina
 #ShighRetornoPosGuerraPlatina
-#
+
 #XlowPreGuerraPaladio
 #XhighPreGuerraPaladio
-#
+
 #XlowPreGuerraPlatina
 #XhighPreGuerraPlatina
-#
+
 #XlowPosGuerraPaladio
 #XhighPosGuerraPaladio
-#
+
 #XlowPosGuerraPlatina
 #XhighPosGuerraPlatina
-#
+
 #meanDiffLowPaladio
-#
+
 #meanDiffHighPaladio
-#
+
 #meanDiffLowPlatina
-#
+
 #meanDiffHighPlatina
 
-testeVarPaladio <- bartlett.test(list(preGuerra$Paladio, posGuerra$Paladio))
-testeVarPlatina <- bartlett.test(list(preGuerra$Platina, posGuerra$Platina))
+#testeVarPaladio <- bartlett.test(list(preGuerra$Paladio, posGuerra$Paladio))
+#testeVarPlatina <- bartlett.test(list(preGuerra$Platina, posGuerra$Platina))
 
-testeMediaPaladio <- t.test(preGuerra$Paladio, posGuerra$Paladio, "l", FALSE, FALSE, 0.95)
-testeMediaPlatina <- t.test(preGuerra$Platina, posGuerra$Platina, "l", FALSE, FALSE, 0.95)
+#testeMediaPaladio <- t.test(preGuerra$Paladio, posGuerra$Paladio, "l", FALSE, FALSE, 0.95)
+#testeMediaPlatina <- t.test(preGuerra$Platina, posGuerra$Platina, "l", FALSE, FALSE, 0.95)
 
-testeVarPaladio
-testeVarPlatina
+#testeVarPaladio
+#testeVarPlatina
 
-testeMediaPaladio
-testeMediaPlatina
+#testeMediaPaladio
+#testeMediaPlatina
 
-varPreGuerraPaladio
-varPosGuerraPaladio
+#varPreGuerraPaladio
+#varPosGuerraPaladio
 
-varPreGuerraPlatina
-varPosGuerraPlatina
+#varPreGuerraPlatina
+#varPosGuerraPlatina
 
 #plot.new()
 #plot(preGuerra$Platina, preGuerra$Paladio, main="Gráfico de dispersão pré Guerra", xlab="Preço do paládio", ylab="Preço da platina", col="red", cex=0.7, pch=0)
@@ -188,11 +224,12 @@ varPosGuerraPlatina
 #regressao1
 #abline(regressao1)
 #summary(regressao1)
-#
+
 #plot(posGuerra$Platina, posGuerra$Paladio, main="Gráfico de dispersão pós Guerra", xlab="Preço do paládio", ylab="Preço da platina", col="red", cex=0.7, pch=0)
 #regressao2 <- lm(posGuerra$Paladio~posGuerra$Platina)
 #regressao2
 #abline(regressao2)
-#
-cor(preGuerra$RetornoPaladio[2:dim(preGuerra)[1]], preGuerra$RetornoPlatina[2:dim(preGuerra)[1]])
-cor(posGuerra$RetornoPaladio[2:dim(posGuerra)[1]], posGuerra$RetornoPlatina[2: dim(posGuerra)[1]])
+
+#cor(preGuerra$RetornoPaladio[2:dim(preGuerra)[1]], preGuerra$RetornoPlatina[2:dim(preGuerra)[1]])
+#cor(posGuerra$RetornoPaladio[2:dim(posGuerra)[1]], posGuerra$RetornoPlatina[2: dim(posGuerra)[1]])
+
