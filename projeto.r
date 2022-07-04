@@ -170,27 +170,29 @@ testeVarPlatina <- bartlett.test(list(preGuerra$Platina, posGuerra$Platina))
 testeMediaPaladio <- t.test(preGuerra$Paladio, posGuerra$Paladio, "l", FALSE, FALSE, 0.95)
 testeMediaPlatina <- t.test(preGuerra$Platina, posGuerra$Platina, "l", FALSE, FALSE, 0.95)
 
-#testeVarPaladio
-#testeVarPlatina
-#
-#testeMediaPaladio
-#testeMediaPlatina
-#
-#varPreGuerraPaladio
-#varPosGuerraPaladio
-#
-#varPreGuerraPlatina
-#varPosGuerraPlatina
-plot.new()
-plot(preGuerra$Platina, preGuerra$Paladio, main="Gráfico de dispersão pré Guerra", xlab="Preço do paládio", ylab="Preço da platina", col="red", cex=0.7, pch=0)
-regressao1 <- lm(preGuerra$Paladio~preGuerra$Platina)
-regressao1
-abline(regressao1)
-summary(regressao1)
+testeVarPaladio
+testeVarPlatina
 
-plot(posGuerra$Platina, posGuerra$Paladio, main="Gráfico de dispersão pós Guerra", xlab="Preço do paládio", ylab="Preço da platina", col="red", cex=0.7, pch=0)
-regressao2 <- lm(posGuerra$Paladio~posGuerra$Platina)
-regressao2
-abline(regressao2)
+testeMediaPaladio
+testeMediaPlatina
 
-aov(preGuerra$Paladio~posGuerra$Paladio)
+varPreGuerraPaladio
+varPosGuerraPaladio
+
+varPreGuerraPlatina
+varPosGuerraPlatina
+
+#plot.new()
+#plot(preGuerra$Platina, preGuerra$Paladio, main="Gráfico de dispersão pré Guerra", xlab="Preço do paládio", ylab="Preço da platina", col="red", cex=0.7, pch=0)
+#regressao1 <- lm(preGuerra$Paladio~preGuerra$Platina)
+#regressao1
+#abline(regressao1)
+#summary(regressao1)
+#
+#plot(posGuerra$Platina, posGuerra$Paladio, main="Gráfico de dispersão pós Guerra", xlab="Preço do paládio", ylab="Preço da platina", col="red", cex=0.7, pch=0)
+#regressao2 <- lm(posGuerra$Paladio~posGuerra$Platina)
+#regressao2
+#abline(regressao2)
+#
+cor(preGuerra$RetornoPaladio[2:dim(preGuerra)[1]], preGuerra$RetornoPlatina[2:dim(preGuerra)[1]])
+cor(posGuerra$RetornoPaladio[2:dim(posGuerra)[1]], posGuerra$RetornoPlatina[2: dim(posGuerra)[1]])
