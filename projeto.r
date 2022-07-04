@@ -1,6 +1,7 @@
+library("Rlab")
 library(zoo)
 library(dplyr)
-setwd("/Users/feliperamos/Documents/pro3200/projeto")
+setwd("/Users/feliperamos/Documents/pro3200/projeto/projEstat/")
 dados <- read.csv(file="metais.csv")
 dadosInt <- mutate(dados, Paladio = na.approx(Paladio))
 dadosInt <- mutate(dadosInt, Platina = na.approx(Platina))
@@ -169,14 +170,28 @@ testeVarPlatina <- bartlett.test(list(preGuerra$Platina, posGuerra$Platina))
 testeMediaPaladio <- t.test(preGuerra$Paladio, posGuerra$Paladio, "l", FALSE, FALSE, 0.95)
 testeMediaPlatina <- t.test(preGuerra$Platina, posGuerra$Platina, "l", FALSE, FALSE, 0.95)
 
-testeVarPaladio
-testeVarPlatina
+#testeVarPaladio
+#testeVarPlatina
+#
+#testeMediaPaladio
+#testeMediaPlatina
+#
+#varPreGuerraPaladio
+#varPosGuerraPaladio
+#
+#varPreGuerraPlatina
+#varPosGuerraPlatina
+plot.new()
+plot(preGuerra$Paladio, preGuerra$Platina, main="Gráfico de dispersão pré Guerra", xlab="Preço da platina", ylab="Preço do Paládio", col="red", cex=0.7, pch=0)
+regressao1 <- lm(preGuerra$Paladio~preGuerra$Platina)
+regressao1
+#abline(a=-1597.755, b=3.6165)
+abline(a=0.01, b=1.61)
+summary(regressao1)
 
-testeMediaPaladio
-testeMediaPlatina
+#plot(preGuerra$Paladio, preGuerra$Platina, main="Gráfico de dispersão pós Guerra", xlab="Preço da platina", ylab="Preço do Paládio", col="red", cex=0.7, pch=0)
+#regressao2 <- lm(posGuerra$Paladio~posGuerra$Platina)
+#regressao2
+#abline(regressao2$coefficients[1], regressao2$coefficients[2])
 
-varPreGuerraPaladio
-varPosGuerraPaladio
 
-varPreGuerraPlatina
-varPosGuerraPlatina
