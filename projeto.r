@@ -6,8 +6,8 @@ dados <- read.csv(file="metais.csv")
 dadosInt <- mutate(dados, Paladio = na.approx(Paladio))
 dadosInt <- mutate(dadosInt, Platina = na.approx(Platina))
 
-preGuerra <- dadosInt[1:115,]
-posGuerra <- dadosInt[116:180,]
+preGuerra <- dadosInt[1:65,]
+posGuerra <- dadosInt[66:130,]
 
 mediaPreGuerraPaladio = mean(preGuerra$Paladio)
 mediaPreGuerraPlatina = mean(preGuerra$Platina)
@@ -185,13 +185,12 @@ plot.new()
 plot(preGuerra$Paladio, preGuerra$Platina, main="Gráfico de dispersão pré Guerra", xlab="Preço da platina", ylab="Preço do Paládio", col="red", cex=0.7, pch=0)
 regressao1 <- lm(preGuerra$Paladio~preGuerra$Platina)
 regressao1
-#abline(a=-1597.755, b=3.6165)
-abline(a=0.01, b=1.61)
+abline(regressao1)
 summary(regressao1)
 
-#plot(preGuerra$Paladio, preGuerra$Platina, main="Gráfico de dispersão pós Guerra", xlab="Preço da platina", ylab="Preço do Paládio", col="red", cex=0.7, pch=0)
-#regressao2 <- lm(posGuerra$Paladio~posGuerra$Platina)
-#regressao2
-#abline(regressao2$coefficients[1], regressao2$coefficients[2])
+plot(posGuerra$Paladio, posGuerra$Platina, main="Gráfico de dispersão pós Guerra", xlab="Preço da platina", ylab="Preço do Paládio", col="red", cex=0.7, pch=0)
+regressao2 <- lm(posGuerra$Paladio~posGuerra$Platina)
+regressao2
+abline(regressao2$coefficients[1], regressao2$coefficients[2])
 
-
+aov(preGuerra$Paladio~posGuerra$Paladio)
