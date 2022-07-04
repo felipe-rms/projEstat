@@ -182,15 +182,15 @@ testeMediaPlatina <- t.test(preGuerra$Platina, posGuerra$Platina, "l", FALSE, FA
 #varPreGuerraPlatina
 #varPosGuerraPlatina
 plot.new()
-plot(preGuerra$Paladio, preGuerra$Platina, main="Gráfico de dispersão pré Guerra", xlab="Preço da platina", ylab="Preço do Paládio", col="red", cex=0.7, pch=0)
+plot(preGuerra$Platina, preGuerra$Paladio, main="Gráfico de dispersão pré Guerra", xlab="Preço do paládio", ylab="Preço da platina", col="red", cex=0.7, pch=0)
 regressao1 <- lm(preGuerra$Paladio~preGuerra$Platina)
 regressao1
 abline(regressao1)
 summary(regressao1)
 
-plot(posGuerra$Paladio, posGuerra$Platina, main="Gráfico de dispersão pós Guerra", xlab="Preço da platina", ylab="Preço do Paládio", col="red", cex=0.7, pch=0)
+plot(posGuerra$Platina, posGuerra$Paladio, main="Gráfico de dispersão pós Guerra", xlab="Preço do paládio", ylab="Preço da platina", col="red", cex=0.7, pch=0)
 regressao2 <- lm(posGuerra$Paladio~posGuerra$Platina)
 regressao2
-abline(regressao2$coefficients[1], regressao2$coefficients[2])
+abline(regressao2)
 
 aov(preGuerra$Paladio~posGuerra$Paladio)
