@@ -138,11 +138,11 @@ for(i in 2: dim(preGuerra)[1]){
 
 for(i in 2: dim(preGuerra)[1]){
 	preGuerra$RetornoPaladio[i] <- log(preGuerra$Paladio[i]/preGuerra$Paladio[i-1])
-    preGuerra$RetornoCrudeOil[i] <- log(posGuerra$CrudeOil[i]/posGuerra$CrudeOil[i-1])
-    preGuerra$RetornoUSBond[i] <- log(posGuerra$USBond[i]/posGuerra$USBond[i-1])
-    preGuerra$RetornoOuro[i] <- log(posGuerra$Ouro[i]/posGuerra$Ouro[i-1])
-    preGuerra$RetornoDolar[i] <- log(posGuerra$Dolar[i]/posGuerra$Dolar[i-1])
-    preGuerra$RetornoBitcoin[i] <- log(posGuerra$Bitcoin[i]/posGuerra$Bitcoin[i-1])
+    preGuerra$RetornoCrudeOil[i] <- log(preGuerra$CrudeOil[i]/preGuerra$CrudeOil[i-1])
+    preGuerra$RetornoUSBond[i] <- log(preGuerra$USBond[i]/preGuerra$USBond[i-1])
+    preGuerra$RetornoOuro[i] <- log(preGuerra$Ouro[i]/preGuerra$Ouro[i-1])
+    preGuerra$RetornoDolar[i] <- log(preGuerra$Dolar[i]/preGuerra$Dolar[i-1])
+    preGuerra$RetornoBitcoin[i] <- log(preGuerra$Bitcoin[i]/preGuerra$Bitcoin[i-1])
 	if(preGuerra$RetornoPaladio[i] > 0.025){
 		contRetornoPaladioPre = contRetornoPaladioPre + 1
 	}
@@ -232,4 +232,31 @@ ShighRetornoPosGuerraPlatina = (dim(posGuerra)[1]-1)*varPosRetornoPlatina/aPosGu
 
 #cor(preGuerra$RetornoPaladio[2:dim(preGuerra)[1]], preGuerra$RetornoPlatina[2:dim(preGuerra)[1]])
 #cor(posGuerra$RetornoPaladio[2:dim(posGuerra)[1]], posGuerra$RetornoPlatina[2: dim(posGuerra)[1]])
+
+retornosPre <- NULL
+retornosPre$"Valores" <- c(preGuerra$RetornoPaladio, preGuerra$RetornoPlatina, preGuerra$RetornoBitcoin, preGuerra$RetornoUSBond, preGuerra$RetornoCrudeOil, preGuerra$RetornoDolar, preGuerra$RetornoOuro)
+retornosPre$"Grupos"[1:112] = "Paladio"
+retornosPre$Grupos[113:224] = "Platina"
+retornosPre$Grupos[225:336] = "Bitcoin"
+retornosPre$Grupos[337:448] = "USBond"
+retornosPre$Grupos[449:560] = "CrudeOil"
+retornosPre$Grupos[561:672] = "Dolar"
+retornosPre$Grupos[673:784] = "Ouro"
+
+
+retornosPos <- NULL
+retornosPos$"Valores" <- c(posGuerra$RetornoPaladio, posGuerra$RetornoPlatina, posGuerra$RetornoBitcoin, posGuerra$RetornoUSBond, posGuerra$RetornoCrudeOil, posGuerra$RetornoDolar, posGuerra$RetornoOuro)
+retornosPos$"Grupos"[1:68] = "Paladio"
+retornosPos$Grupos[69:136] = "Platina"
+retornosPos$Grupos[137:204] = "Bitcoin"
+retornosPos$Grupos[205:272] = "USBond"
+retornosPos$Grupos[273:340] = "CrudeOil"
+retornosPos$Grupos[341:408] = "Dolar"
+retornosPos$Grupos[409:476] = "Ouro"
+
+aov1 <- aov(Valores ~ Grupos, data=retornosPre)
+aov2 <- aov(Valores ~ Grupos, data=retornosPos)
+
+summary(aov1)
+summary(aov2)
 
